@@ -11,6 +11,7 @@ import 'package:my_portfolio/ui/contact/tablet_ui/contact_tablet_view.dart';
 import 'package:my_portfolio/ui/hero_section.dart';
 import 'package:my_portfolio/ui/projects_section.dart';
 import 'package:my_portfolio/ui/skills_section.dart' show SkillsSection;
+import 'package:my_portfolio/widgets/header_text.dart';
 
 class HomeMobileView extends StatefulWidget {
   const HomeMobileView({super.key});
@@ -87,15 +88,36 @@ class _HomeMobileViewState extends State<HomeMobileView>
          child: Column(
            children: [
              SizedBox(height: 20.h,),
-             Text("Home",style: TextStyle(fontSize: 60.sp, color: Colors.white),),
+             InkWell(
+                 onTap: (){
+                   tabController.animateTo(0);
+                   _key.currentState!.closeEndDrawer();
+                 },
+                 child: Text("Home",style: TextStyle(fontSize: 60.sp, color: Colors.white),)),
              SizedBox(height: 10.h,),
-             Text("Portfolio",style: TextStyle(fontSize: 60.sp, color: Colors.white),),
+             InkWell(
+                 onTap: (){
+                   tabController.animateTo(1);
+                   _key.currentState!.closeEndDrawer();
+                 },child: Text("Portfolio",style: TextStyle(fontSize: 60.sp, color: Colors.white),)),
              SizedBox(height: 10.h,),
-             Text("Blogs",style: TextStyle(fontSize: 60.sp, color: Colors.white),),
+        InkWell(
+          onTap: (){
+            tabController.animateTo(2);
+            _key.currentState!.closeEndDrawer();
+          },child: Text("Blogs",style: TextStyle(fontSize: 60.sp, color: Colors.white),)),
              SizedBox(height: 10.h,),
-             Text("About",style: TextStyle(fontSize: 60.sp, color: Colors.white),),
+             InkWell(
+                 onTap: (){
+                   tabController.animateTo(3);
+                   _key.currentState!.closeEndDrawer();
+                 },child: Text("About",style: TextStyle(fontSize: 60.sp, color: Colors.white),)),
              SizedBox(height: 10.h,),
-             Text("Contact",style: TextStyle(fontSize: 60.sp, color: Colors.white),),
+             InkWell(
+                 onTap: (){
+                   tabController.animateTo(4);
+                   _key.currentState!.closeEndDrawer();
+                 },child: Text("Contact",style: TextStyle(fontSize: 60.sp, color: Colors.white),)),
              SizedBox(height: 10.h,),
            ],
          ),
@@ -175,7 +197,7 @@ class _HomeMobileViewState extends State<HomeMobileView>
   Widget _whatIDo() =>
       Column(
         children: [
-        _headingText("💼 What I Do"),
+        HeaderText(title: "💼 What I Do"),
           SizedBox(height: 20,),
           StreamBuilder(
               stream: getIt<FirebaseFirestore>()
@@ -240,7 +262,7 @@ class _HomeMobileViewState extends State<HomeMobileView>
   Widget _featuredProjects() =>
       Column(
         children: [
-          _headingText("Featured Projects"),
+          HeaderText(title: "Featured Projects"),
           SizedBox(height: 20,),
           SizedBox(
               // height: 200,
@@ -327,7 +349,7 @@ class _HomeMobileViewState extends State<HomeMobileView>
   Widget _techStack() =>
       Column(
         children: [
-          _headingText("Tech Stack"),
+          HeaderText(title: "Tech Stack"),
           SizedBox(height: 20,),
           SizedBox(
             width: MediaQuery
@@ -364,19 +386,6 @@ class _HomeMobileViewState extends State<HomeMobileView>
         ],
       );
 
-  Widget _headingText(String title)=>Container(
-    decoration: BoxDecoration(
-        border: Border(
-            bottom: BorderSide(color: Colors.white,width: 3)
-        )
-    ),
-    padding: EdgeInsets.only(bottom: 5),
-    margin: EdgeInsets.symmetric(horizontal: 20),
-    child: Text(title, style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: getCustomScreenType(context)==CustomScreenType.mobile?110.sp:40.sp,
-        color: Colors.white),),
-  );
 
   Widget _footer() =>
       Padding(

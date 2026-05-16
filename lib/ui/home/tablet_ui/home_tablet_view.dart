@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:my_portfolio/constants/app_text_styles.dart';
 import 'package:my_portfolio/constants/utils.dart';
 import 'package:my_portfolio/injection_container.dart';
 import 'package:my_portfolio/ui/about_section.dart';
@@ -11,6 +12,8 @@ import 'package:my_portfolio/ui/contact/tablet_ui/contact_tablet_view.dart';
 import 'package:my_portfolio/ui/hero_section.dart';
 import 'package:my_portfolio/ui/projects_section.dart';
 import 'package:my_portfolio/ui/skills_section.dart' show SkillsSection;
+import 'package:my_portfolio/widgets/footer.dart';
+import 'package:my_portfolio/widgets/header_text.dart';
 
 class HomeTabletView extends StatefulWidget {
   const HomeTabletView({super.key});
@@ -127,20 +130,32 @@ class _HomeTabletViewState extends State<HomeTabletView>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
-                  child: RichText(text: TextSpan(
-                      text: "I am Ashish Chauhan - A ",
-                      style: TextStyle(
-                          fontSize: 60.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold
-                      ),
-                      children: [
-                        TextSpan(text: "Flutter craftsman ",
-                            style: TextStyle(color: Colors.green)),
-                        TextSpan(
-                            text: "blending clean architecture, sleek UI, and blazing performance to build beautiful, scalable apps that turn ideas into reality."),
-                      ]
-                  )),
+                  child: StreamBuilder(
+                      stream: getIt<FirebaseFirestore>()
+                          .collection("portfolio_data")
+                          .doc("home_screen_data")
+                          .snapshots(),
+                      builder: (context, asyncSnapshot) {
+                        if (!asyncSnapshot.hasData || asyncSnapshot.data == null) {
+                          return SizedBox.shrink();
+                        }
+                        Map bio = asyncSnapshot.data?.data()?["bio"];
+                      return RichText(text: TextSpan(
+                          text: bio['intro_line'],
+                          style: TextStyle(
+                              fontSize: 60.sp,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                          ),
+                          children: [
+                            TextSpan(text: bio['profile'],
+                                style: TextStyle(color: Colors.green)),
+                            TextSpan(
+                                text: bio['profile_description']),
+                          ]
+                      ));
+                    }
+                  ),
                 ),
                 SizedBox(width: 100,),
                 Image.asset("assets/images/my_image.png",
@@ -161,7 +176,7 @@ class _HomeTabletViewState extends State<HomeTabletView>
           SizedBox(height: 60,),
           Divider(color: Colors.white54,),
           SizedBox(height: 20,),
-          _footer(),
+          const FooterWidget(),
           SizedBox(height: 20,),
 
         ],
@@ -170,7 +185,7 @@ class _HomeTabletViewState extends State<HomeTabletView>
   Widget _whatIDo() =>
       Column(
         children: [
-        _headingText("💼 What I Do"),
+        HeaderText(title: "💼 What I Do"),
           SizedBox(height: 20,),
           StreamBuilder(
               stream: getIt<FirebaseFirestore>()
@@ -235,7 +250,7 @@ class _HomeTabletViewState extends State<HomeTabletView>
   Widget _featuredProjects() =>
       Column(
         children: [
-          _headingText("Featured Projects"),
+          HeaderText(title: "Featured Projects"),
           SizedBox(height: 20,),
           SizedBox(
               // height: 200,
@@ -323,7 +338,7 @@ class _HomeTabletViewState extends State<HomeTabletView>
   Widget _techStack() =>
       Column(
         children: [
-          _headingText("Tech Stack"),
+          HeaderText(title: "Tech Stack"),
           SizedBox(height: 20,),
           SizedBox(
             width: MediaQuery
@@ -360,41 +375,6 @@ class _HomeTabletViewState extends State<HomeTabletView>
         ],
       );
 
-  Widget _headingText(String title)=>Container(
-    decoration: BoxDecoration(
-        border: Border(
-            bottom: BorderSide(color: Colors.white,width: 3)
-        )
-    ),
-    padding: EdgeInsets.only(bottom: 5),
-    margin: EdgeInsets.symmetric(horizontal: 20),
-    child: Text(title, style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: getCustomScreenType(context)==CustomScreenType.mobile?110.sp:40.sp,
-        color: Colors.white),),
-  );
+  
 
-  Widget _footer() =>
-      Column(
-        children: [
-          Text("🔗 Let's Connect",
-            style: TextStyle(fontSize: 16, color: Colors.white),),
-          SizedBox(height: 10,),
-          RichText(text: TextSpan(
-              style: TextStyle(fontSize: 16, color: Colors.white),
-              children: [
-                TextSpan(text: "LinkedIn", recognizer: TapGestureRecognizer()..onTap = () { launchUrlMethod("https://www.linkedin.com/in/ashish-chauhan-6b9069141/");},),
-                WidgetSpan(child: SizedBox(width: 20,)),
-                TextSpan(text: "GitHub", recognizer: TapGestureRecognizer()..onTap = () { launchUrlMethod("https://github.com/epicureanAshish?tab=repositories");},),
-                WidgetSpan(child: SizedBox(width: 20,)),
-                TextSpan(text: "Email", recognizer: TapGestureRecognizer()..onTap = () { launchUrlMethod("mailto:ashishchauhan0206@gmail.com");},),
-              ]
-          )),
-
-          SizedBox(height: 10,),
-          Text(
-            "Made with Flutter ❤️ | © 2025 Ashish Chauhan. All rights reserved.",
-            style: TextStyle(fontSize: 16, color: Colors.white),),
-        ],
-      );
 }
