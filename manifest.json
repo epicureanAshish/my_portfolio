@@ -1,11 +1,11 @@
 {
-    "name": "Ashish Chauhan | Flutter Developer",
-    "short_name": "Ashish Chauhan",
+    "name": "Ashish Chauhan",
+    "short_name": "Ashish",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Portfolio | Ashish Chauhan | Flutter Developer",
+    "description": "My portfolio",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
