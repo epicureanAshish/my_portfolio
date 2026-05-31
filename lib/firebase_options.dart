@@ -21,15 +21,9 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for android - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -51,6 +45,26 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyAdcktNoBgQ1U5NV8n6iY4q_k59hDCPN_0',
+    appId: '1:1061876049070:ios:e08f2a774db9080134393f',
+    messagingSenderId: '1061876049070',
+    projectId: 'my-portfolio-71070',
+    authDomain: 'my-portfolio-71070.firebaseapp.com',
+    storageBucket: 'my-portfolio-71070.firebasestorage.app',
+    androidClientId: 'com.ashishchauhan.my_portfolio',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyBcZi2XqRZRsUQyHkLgz9l6nKSnGlOOK8Y',
+    appId: '1:1061876049070:ios:e08f2a774db9080134393f',
+    messagingSenderId: '1061876049070',
+    projectId: 'my-portfolio-71070',
+    authDomain: 'my-portfolio-71070.firebaseapp.com',
+    storageBucket: 'my-portfolio-71070.firebasestorage.app',
+    iosBundleId: 'com.ashishchauhan.myPortfolio',
+  );
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDJ5CgSIQqsT4xMpnolb89yEEUINPRffj0',

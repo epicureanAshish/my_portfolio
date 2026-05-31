@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:my_portfolio/constants/app_colors.dart';
 import 'package:my_portfolio/constants/utils.dart';
 
 
@@ -14,15 +15,9 @@ class AppTextStyles {
     final screen = getCustomScreenType(context);
 
     return TextStyle(
-      fontSize: screen == CustomScreenType.desktop
-          ? 48.sp
-          : screen == CustomScreenType.tablet
-          ? 40.sp
-          : 28.sp,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-      height: 1.2,
-    );
+        fontWeight: FontWeight.bold,
+        fontSize: screen==CustomScreenType.mobile?110.sp:40.sp,
+        color: Colors.white);
   }
 
   static TextStyle heading2(BuildContext context) {
@@ -30,7 +25,7 @@ class AppTextStyles {
 
     return TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: screen==CustomScreenType.mobile?110.sp:40.sp,
+        fontSize: screen==CustomScreenType.mobile?90.sp:40.sp,
         color: Colors.white);
   }
 
@@ -42,7 +37,7 @@ class AppTextStyles {
           ? 26.sp
           : screen == CustomScreenType.tablet
           ? 22.sp
-          : 18.sp,
+          : 80.sp,
       fontWeight: FontWeight.bold,
       color: Colors.white,
       letterSpacing: 0.5,
@@ -58,13 +53,13 @@ class AppTextStyles {
 
     return TextStyle(
       fontSize: screen == CustomScreenType.desktop
-          ? 18.sp
+          ? 20.sp
           : screen == CustomScreenType.tablet
-          ? 16.sp
-          : 14.sp,
+          ? 25.sp
+          : 70.sp,
       fontWeight: FontWeight.w400,
       color: Colors.white,
-      height: 1.6,
+      // height: 1.6,
     );
   }
 
@@ -219,28 +214,208 @@ class AppTextStyles {
 
   static TextStyle custom(
       BuildContext context, {
+        double? fontSize,
         double? desktop,
         double? tablet,
         double? mobile,
         FontWeight? fontWeight,
+        FontWeight? desktopFontWeight,
+        FontWeight? tabletFontWeight,
+        FontWeight? mobileFontWeight,
         Color? color,
+        Color? desktopColor,
+        Color? tabletColor,
+        Color? mobileColor,
         double? height,
         double? letterSpacing,
       }) {
     final screen = getCustomScreenType(context);
 
-    double size = screen == CustomScreenType.desktop
+    double size = fontSize ?? (screen == CustomScreenType.desktop
         ? (desktop ?? 16)
         : screen == CustomScreenType.tablet
         ? (tablet ?? 14)
-        : (mobile ?? 12);
+        : (mobile ?? 12));
+    FontWeight? fontWeight0 = fontWeight ?? (screen == CustomScreenType.desktop
+        ? (desktopFontWeight ?? FontWeight.w400)
+        : screen == CustomScreenType.tablet
+        ? (tabletFontWeight ?? FontWeight.w400)
+        : (mobileFontWeight ?? FontWeight.w400));
+
+    Color? textColor = color ?? (screen == CustomScreenType.desktop
+        ? (desktopColor ?? Colors.white)
+        : screen == CustomScreenType.tablet
+        ? (tabletColor ?? Colors.white)
+        : (mobileColor ?? Colors.white));
+
+
 
     return TextStyle(
       fontSize: size.sp,
-      fontWeight: fontWeight,
-      color: color ?? Colors.white,
+      fontWeight: fontWeight0,
+      color: textColor,
       height: height,
       letterSpacing: letterSpacing,
     );
   }
+
+  static TextStyle customStyle(
+      CustomScreenType screenType, {
+        double? fontSize,
+        double? desktop,
+        double? tablet,
+        double? mobile,
+        FontWeight? fontWeight,
+        FontWeight? desktopFontWeight,
+        FontWeight? tabletFontWeight,
+        FontWeight? mobileFontWeight,
+        Color? color,
+        Color? desktopColor,
+        Color? tabletColor,
+        Color? mobileColor,
+        double? height,
+        double? letterSpacing,
+      }) {
+
+
+    double size = fontSize ?? (screenType == CustomScreenType.desktop
+        ? (desktop ?? 16)
+        : screenType == CustomScreenType.tablet
+        ? (tablet ?? 14)
+        : (mobile ?? 12));
+    FontWeight? fontWeight0 = fontWeight ?? (screenType == CustomScreenType.desktop
+        ? (desktopFontWeight ?? FontWeight.w400)
+        : screenType == CustomScreenType.tablet
+        ? (tabletFontWeight ?? FontWeight.w400)
+        : (mobileFontWeight ?? FontWeight.w400));
+
+    Color? textColor = color ?? (screenType == CustomScreenType.desktop
+        ? (desktopColor ?? Colors.white)
+        : screenType == CustomScreenType.tablet
+        ? (tabletColor ?? Colors.white)
+        : (mobileColor ?? Colors.white));
+
+
+
+    return TextStyle(
+      fontFamily: "Poppins",
+      fontSize: size.sp,
+      fontWeight: fontWeight0,
+      color: textColor,
+      height: height,
+      letterSpacing: letterSpacing,
+    );
+  }
+
+  // Navbar
+
+  static TextStyle headerTabs(CustomScreenType screenType) {
+    return customStyle(
+        screenType,
+        desktop: 16,
+        tablet: 40,
+        mobile: 80,
+        desktopColor: Colors.white70,
+        tabletColor: Colors.white70,
+        mobileColor: Colors.white,
+        desktopFontWeight: FontWeight.w500,
+        tabletFontWeight: FontWeight.w500,
+        mobileFontWeight: FontWeight.w600
+    );
+  }
+
+  static TextStyle headerName(CustomScreenType screenType) {
+    return customStyle(
+        screenType,
+        desktop: 22,
+        tablet: 60,
+        mobile: 100,
+        color: Colors.white,
+        fontWeight: FontWeight.w600,
+
+    );
+  }
+
+  // Hero Section
+
+  static TextStyle designationStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 30,
+      tablet: 40,
+      mobile: 80,
+      color: AppColors.purpleColor3,
+      letterSpacing: 2,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle profileTitleStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 68,
+      tablet: 70,
+      mobile: 120,
+      color: Colors.white,
+      height: 1.15,
+      letterSpacing: 2,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
+  static TextStyle bioDescStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 18,
+      tablet: 35,
+      mobile: 70,
+      color: Colors.white70,
+      height: 1.8,
+    );
+  }
+
+  static TextStyle buttonTextStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 18,
+      tablet: 30,
+      mobile: 80,
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle skillTextStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 20,
+      tablet: 30,
+      mobile: 70,
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle projectTitleTextStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 25,
+      tablet: 40,
+      mobile: 90,
+      color: Colors.white,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
+  static TextStyle sectionHeadingTextStyle(CustomScreenType screenType) {
+    return customStyle(
+      screenType,
+      desktop: 34,
+      tablet: 50,
+      mobile: 90,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    );
+  }
+
 }

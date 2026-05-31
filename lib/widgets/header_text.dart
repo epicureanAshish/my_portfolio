@@ -15,7 +15,7 @@ class HeaderText extends StatelessWidget {
       ),
       padding: EdgeInsets.only(bottom: 5),
       margin: EdgeInsets.symmetric(horizontal: 20),
-      child: Text(title, style: AppTextStyles.heading2(context),),
+      child: Text(title, style: AppTextStyles.heading1(context),),
     );
   }
 }

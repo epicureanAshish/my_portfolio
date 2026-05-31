@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:my_portfolio/ui/home/home_view.dart';
-import 'package:my_portfolio/ui/home/tablet_ui/home_tablet_view.dart';
 import 'injection_container.dart' as di;
 
 Future<void> main() async {
@@ -28,10 +27,11 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Ashish Chauhan | Flutter Developer',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            fontFamily: "Poppins",
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          ),
+          theme:ThemeData.dark(),
+          // ThemeData(
+          //   fontFamily: "Poppins",
+          //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // ),
           home: const HomeView(),
         );
       }
