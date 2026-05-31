@@ -55,11 +55,12 @@ class ProjectsMobileView extends StatelessWidget {
 
           SizedBox(
             width: context.screenWidth,
-            child: ListView.builder(
+            child: ListView.separated(
               shrinkWrap: true,
               padding: EdgeInsets.zero,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: projects.length,
+              separatorBuilder: (context, index) => const SizedBox(height: 10,),
               itemBuilder: (context, index) {
                 final project = projects[index];
 
