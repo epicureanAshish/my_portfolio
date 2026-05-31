@@ -15,8 +15,8 @@ class HeroTabletView extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      child: Stack(
-        clipBehavior: Clip.none,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,18 +32,16 @@ class HeroTabletView extends StatelessWidget {
               ),
                       ],
                     ),
-              Positioned(
-                bottom: 15,
-                child: Wrap(
-                  spacing: 20,
-                  runSpacing: 10,
-                  children: [
-                    _skillBadge(bio['main_skills']['skill_1']),
-                    _skillBadge(bio['main_skills']['skill_2']),
-                    _skillBadge(bio['main_skills']['skill_3']),
-                    _skillBadge(bio['main_skills']['skill_4']),
-                  ],
-                ),
+              const SizedBox(height: 10,),
+              Wrap(
+                spacing: 20,
+                runSpacing: 10,
+                children: [
+                  _skillBadge(bio['main_skills']['skill_1']),
+                  _skillBadge(bio['main_skills']['skill_2']),
+                  _skillBadge(bio['main_skills']['skill_3']),
+                  _skillBadge(bio['main_skills']['skill_4']),
+                ],
               )
             ],
           ),
@@ -187,31 +185,3 @@ class HeroTabletView extends StatelessWidget {
   }
 }
 
-class _InfoItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const _InfoItem({
-    required this.icon,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          color: AppColors.purpleColor3,
-          size: 20,
-        ),
-        const SizedBox(width: 10),
-        Text(
-            text,
-            style: AppTextStyles.bioDescStyle(CustomScreenType.tablet)
-        ),
-      ],
-    );
-  }
-}
